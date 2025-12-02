@@ -25,7 +25,7 @@ function Nav() {
     let navigate = useNavigate()
     let {serverUrl} = useContext(authDataContext)
     let [cate,setCate]= useState()
-    let {listingData, setListingData}=useContext(listingDataContext)
+    let {listingData, setListingData,setNewListData,newlistData}=useContext(listingDataContext)
 
     const handleLogOut = async () => {
         try{
@@ -44,11 +44,25 @@ function Nav() {
         }
     }
 
-    const handleCategory = (category) =>{
-        setCate(category);
-        console.log("This is the set category",category);
-        setNewListData(listingData.filter((list)=>list.category==category))
+  const handleCategory = (category) => {
+  // Check if the clicked category is the same as the current one
+  if (cate === category) {
+    // Toggle off: clear category and show all listings
+    setCate(null);
+    setNewListData(listingData);
+  } else {
+    // Set the new category
+    setCate(category);
+    
+    // Filter based on the new category
+    if (category === "trending" || category === null) {
+      setNewListData(listingData); // Show all for "trending"
+    } else {
+      setNewListData(listingData.filter((list) => list.category === category));
     }
+  }
+};  
+
 
 
     return (
@@ -98,7 +112,7 @@ function Nav() {
             
 
             <div className='w-[100vw] h-[85px] bg-white flex items-center justify-start cursor-pointer gap-[40px] overflow-auto md:justify-center px-[15px]'>
-                <div className={'flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px]'}>
+                <div className='flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px]' onClick={()=>{handleCategory("trending");setCate("")}}>
                     <MdWhatshot className='w-[30px] h-[30px] text-black ' />
                     <h3>Trending</h3>
                 </div>
@@ -118,27 +132,27 @@ function Nav() {
                     <h3>Pool House</h3>
                 </div>
 
-                <div className='flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px]'>
+                <div className={`flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px] ${cate=="rooms"?"border-b-[1px] border-[#a6a5a5]":""}`} onClick={()=>handleCategory("rooms")}>
                     <IoMdBed className='w-[30px] h-[30px] text-black ' />
                     <h3>Rooms</h3>
                 </div>
 
-                <div className='flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px]'>
+                <div className={`flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px] ${cate=="flat"?"border-b-[1px] border-[#a6a5a5]":""}`} onClick={()=>handleCategory("flat")}>
                     <TbBuildingCommunity className='w-[30px] h-[30px] text-black ' />
                     <h3>Flat</h3>
                 </div>
 
-                <div className='flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px]'>
+                <div className={`flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px] ${cate=="pg"?"border-b-[1px] border-[#a6a5a5]":""}`} onClick={()=>handleCategory("pg")}>
                     <IoBedOutline className='w-[30px] h-[30px] text-black ' />
                     <h3>PG</h3>
                 </div>
 
-                <div className='flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px]'>
+                <div className={`flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px] ${cate=="cabin"?"border-b-[1px] border-[#a6a5a5]":""}`} onClick={()=>handleCategory("cabin")}>
                     <GiWoodCabin className='w-[30px] h-[30px] text-black ' />
                     <h3>Cabins</h3>
                 </div>
 
-                <div className='flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px]'>
+                <div className={`flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px] ${cate=="shops"?"border-b-[1px] border-[#a6a5a5]":""}`} onClick={()=>handleCategory("shops")}>
                     <BsShop className='w-[30px] h-[30px] text-black ' />
                     <h3>Shops</h3>
                 </div>

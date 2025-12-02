@@ -80,54 +80,12 @@ function ListingContext({ children }) {
 }
 
 
-  // const handleAddListing = async () => {
-  //   setAdding(true)
-  //   try {
-    
-
-  //     let formData = new FormData()
-  //     formData.append("title", title)
-  //     formData.append("image1", backEndImage1)
-  //     formData.append("image2", backEndImage2)
-  //     formData.append("image3", backEndImage3)
-  //     formData.append("description", description)
-  //     formData.append("rent", Number(rent))
-  //     formData.append("city", city)
-  //     formData.append("landmark", landmark)
-  //     formData.append("category", category)
-
-  //     const result = await axios.post(serverUrl + "/api/listing/add", formData,
-  //       { withCredentials: true })
-  //     setAdding(false)
-  //     console.log(result)
-  //     navigate("/")
-  //     setTitle("")
-  //     setDescription("")
-  //     setFrontEndImage1(null)
-  //     setFrontEndImage2(null)
-  //     setFrontEndImage3(null)
-  //     setBackEndImage1(null)
-  //     setBackEndImage2(null)
-  //     setBackEndImage3(null)
-  //     setRent("")
-  //     setCity("")
-  //     setLandmark("")
-  //     setCategory("")
-
-
-  //   } catch (error) {
-  //     setAdding(false)
-  //     console.log(error)
-      
-  //   }
-  // }
 
   const getListing = async () => {
     try {
       let result = await axios.get( serverUrl + "/api/listing/get",{withCredentials:true})
       
       setListingData(result.data)
-      console.log("Yeta samma pugeko chu")
       setNewListData(result.data)
 
     } catch (error) {
@@ -154,7 +112,7 @@ function ListingContext({ children }) {
     handleAddListing,
     setAdding,adding,
     listingData,setListingData,
-
+    newlistData,setNewListData,
     getListing
 
   }
