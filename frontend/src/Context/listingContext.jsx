@@ -22,6 +22,7 @@ function ListingContext({ children }) {
   let [adding, setAdding] = useState(false)
   let [listingData, setListingData] = useState([])
   let [newlistData, setNewListData] = useState([])
+  let [cardDetails,setCardDetails] = useState(null)
   
   let { serverUrl } = useContext(authDataContext)
 
@@ -83,8 +84,8 @@ function ListingContext({ children }) {
     
     try {
       let result = await axios.get( serverUrl + `/api/listing/findlistingbyid/${id}`,{withCredentials:true})
-
-      console.log(result)
+      console.log(result.data)
+      setCardDetails(result.data)
       navigate("/viewcard")
     } catch (error) {
       console.log(error)
@@ -124,7 +125,8 @@ function ListingContext({ children }) {
     listingData,setListingData,
     newlistData,setNewListData,
     getListing,
-    handleViewCard
+    handleViewCard,
+    cardDetails, setCardDetails
 
   }
   return (
