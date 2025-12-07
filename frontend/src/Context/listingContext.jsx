@@ -20,6 +20,7 @@ function ListingContext({ children }) {
   let [landmark, setLandmark] = useState("")
   let [category, setCategory] = useState("")
   let [adding, setAdding] = useState(false)
+  let [updating, setUpdating] = useState(false)
   let [listingData, setListingData] = useState([])
   let [newlistData, setNewListData] = useState([])
   let [cardDetails,setCardDetails] = useState(null)
@@ -105,7 +106,7 @@ function ListingContext({ children }) {
   }
   useEffect(()=>{
     getListing()
-  },[adding])
+  },[adding,updating])
 
   let value = {
     title, setTitle,
@@ -126,7 +127,8 @@ function ListingContext({ children }) {
     newlistData,setNewListData,
     getListing,
     handleViewCard,
-    cardDetails, setCardDetails
+    cardDetails, setCardDetails,
+    updating, setUpdating
 
   }
   return (
