@@ -31,9 +31,9 @@ function ViewCard() {
     try {
     let formData = new FormData()
     formData.append("title", title)
-    formData.append("image1", backEndImage1)
-    formData.append("image2", backEndImage2)
-    formData.append("image3", backEndImage3)
+    if(backEndImage1){formData.append("image1", backEndImage1)}
+    if(backEndImage2){formData.append("image2", backEndImage2)}
+    if(backEndImage3){formData.append("image3", backEndImage3)}
     formData.append("description", description)
     formData.append("rent", Number(rent)) // Convert to number
     formData.append("city", city)
