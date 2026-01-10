@@ -10,36 +10,39 @@ import MyListing from './pages/MyListing'
 import ViewCard from './pages/ViewCard'
 
 import { userDataContext } from './Context/userContext'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
-    const userContext = useContext(userDataContext)
-    
-  
+  const userContext = useContext(userDataContext)
+
+
   // ✅ SAFE CHECK: Handle undefined context
   if (!userContext) {
     return <div>Loading...</div>
   }
 
-  const { userData,loading } = userContext
+  const { userData, loading } = userContext
 
-    if (loading) {
-        return <div>Loading user data...</div>
-    }
+  if (loading) {
+    return <div>Loading user data...</div>
+  }
 
   // let {userData} = useContext(userDataContext)
 
   return (
     <>
+      <ToastContainer />
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/signup' element={<SignUp/>}/>
-        <Route path='/listingpage1' element={userData != null ?<ListingPage1/>:<Navigate to= {"/"}/>}/>
-        <Route path='/listingpage2' element={userData != null ?<ListingPage2/>:<Navigate to= {"/"}/>}/>
-        <Route path='/listingpage3' element={userData != null ?<ListingPage3/>:<Navigate to= {"/"}/>}/>
-        <Route path='/mylisting' element={userData != null ?<MyListing/>:<Navigate to= {"/"}/>}/>
-        <Route path='/viewcard' element={userData != null ?<ViewCard/>:<Navigate to= {"/"}/>}/>
+        <Route path='/' element={<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<SignUp />} />
+        <Route path='/listingpage1' element={userData != null ? <ListingPage1 /> : <Navigate to={"/"} />} />
+        <Route path='/listingpage2' element={userData != null ? <ListingPage2 /> : <Navigate to={"/"} />} />
+        <Route path='/listingpage3' element={userData != null ? <ListingPage3 /> : <Navigate to={"/"} />} />
+        <Route path='/mylisting' element={userData != null ? <MyListing /> : <Navigate to={"/"} />} />
+        <Route path='/viewcard' element={userData != null ? <ViewCard /> : <Navigate to={"/"} />} />
       </Routes>
     </>
   )

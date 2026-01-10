@@ -6,35 +6,39 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { authDataContext } from '../Context/authContext';
 import { userDataContext } from '../Context/userContext';
+import { toast } from 'react-toastify';
+
 
 function Login() {
   let [show, setShow] = useState("")
-  let {serverUrl} = useContext(authDataContext)
-  let {userData,setUserData} = useContext(userDataContext)
-  let [email,setEmail]= useState("")
-  let [password,setPassword]= useState("")
+  let { serverUrl } = useContext(authDataContext)
+  let { userData, setUserData } = useContext(userDataContext)
+  let [email, setEmail] = useState("")
+  let [password, setPassword] = useState("")
   // const [showPassword, setShowPassword] = useState(false);
 
-  let {loading,setLoading}= useContext(authDataContext)
+  let { loading, setLoading } = useContext(authDataContext)
   let navigate = useNavigate()
-    const handleLogin = async (e) => {
-      e.preventDefault()
-      setLoading(true)
+  const handleLogin = async (e) => {
+    e.preventDefault()
+    setLoading(true)
 
-    try{
-      let result = await axios.post(serverUrl + "/api/auth/login",{
+    try {
+      let result = await axios.post(serverUrl + "/api/auth/login", {
 
         email,
         password
-      },{withCredentials:true})
+      }, { withCredentials: true })
       setLoading(false)
       setUserData(result.data)
       localStorage.setItem("userData", JSON.stringify(result.data))
+      toast.success("Login Successful!")
       navigate("/")
       console.log(result)
     } catch (error) {
       setLoading(false)
-        console.log(error)
+      toast.error(error.response?.data?.message || "Login Failed!")
+      console.log(error)
     }
   }
   return (
@@ -48,19 +52,19 @@ function Login() {
 
         <div className='w-[90%] flex items-start justify-start flex-col gap-[10px] '>
           <label htmlFor="email" className='text-[20px]'>Email</label>
-          <input type="text" id='email' className='w-[90%] h-[40px] border-[2px] border-[#555656] rounded-lg text-[18px] px-[20px]' required onChange={(e)=>setEmail(e.target.value)} value={email} />
+          <input type="text" id='email' className='w-[90%] h-[40px] border-[2px] border-[#555656] rounded-lg text-[18px] px-[20px]' required onChange={(e) => setEmail(e.target.value)} value={email} />
         </div>
 
         <div className='w-[90%] flex items-start justify-start flex-col gap-[10px] relative'>
           <label htmlFor="password" className='text-[20px]'>Password</label>
-          <input type={show ? "text" : "password"} id='password' className='w-[90%] h-[40px] border-[2px] border-[#555656] rounded-lg text-[18px] px-[20px]' required onChange={(e)=>setPassword(e.target.value)} value={password} />
+          <input type={show ? "text" : "password"} id='password' className='w-[90%] h-[40px] border-[2px] border-[#555656] rounded-lg text-[18px] px-[20px]' required onChange={(e) => setPassword(e.target.value)} value={password} />
 
 
-          
+
           {show && <IoEyeOffOutline className='w-[22px] h-[22px] absolute right-[12%] bottom-[10px] cursor-pointer' onClick={() => setShow(prev => !prev)} />}
         </div>
 
-        <button className='px-[50px] py-[10px] bg-[#f14242]  text-[white] text-[18px] md-px-[100px] rounded-lg' disabled={loading}>{loading?"Loading....":"Login"}</button>
+        <button className='px-[50px] py-[10px] bg-[#f14242]  text-[white] text-[18px] md-px-[100px] rounded-lg' disabled={loading}>{loading ? "Loading...." : "Login"}</button>
 
         <p className='text-[18px]'>Don't have any Account?<span className='text-[19px] text-[red] cursor-pointer' onClick={() => navigate("/SignUp")}>SignUp</span>
         </p>
