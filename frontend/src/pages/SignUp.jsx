@@ -41,37 +41,97 @@ function SignUp() {
     }
   }
   return (
-    <div className='w-[100vw] h-[100vh] flex items-center justify-center'>
-
-      <div className='w-[50px] h-[50px] bg-[#84b284] cursor-pointer absolute top-[10%] left-[20px] rounded-[50%] flex items-center justify-center' onClick={() => navigate("/")}>
-        <FaArrowLeft className='w-[25px] h-[25px] text-[white] ' />
+    <div className='w-full min-h-screen flex items-center justify-center relative overflow-hidden bg-slate-50'>
+      {/* Back Button */}
+      <div
+        className='w-12 h-12 bg-white cursor-pointer absolute top-8 left-8 rounded-full flex items-center justify-center z-20 hover:bg-slate-100 transition-all active:scale-95 border border-slate-200 shadow-sm'
+        onClick={() => navigate("/")}
+      >
+        <FaArrowLeft className='w-5 h-5 text-slate-600' />
       </div>
 
-      <form action="" className='max-w-[900px] w-[90%] h-[600px] flex items-center justify-center flex-col md:items-start gap-[10px]' onSubmit={handleSignUp}>
-        <h1 className='text-[30px] text-[black]'>Welcome to Airbnb</h1>
-        <div className='w-[90%] flex items-start justify-start flex-col gap-[10px] mt-[30px]'>
-          <label htmlFor="name" className='text-[20px]'>UserName</label>
-          <input type="text" id='name' className='w-[90%] h-[40px] border-[2px] border-[#555656] rounded-lg text-[18px] px-[20px]' required onChange={(e) => setName(e.target.value)} value={name} />
-        </div>
+      <div className='relative z-10 w-full max-w-lg px-6 animate-in fade-in slide-in-from-bottom-8 duration-700'>
+        <form
+          className='w-full bg-white border border-slate-200 rounded-[2.5rem] p-10 flex flex-col gap-5 shadow-xl'
+          onSubmit={handleSignUp}
+        >
+          <div className='space-y-1 mb-2'>
+            <h1 className='text-4xl font-bold text-slate-900 tracking-tight'>Join <span className='text-rose-500'>Airbnb</span></h1>
+            <p className='text-slate-500 text-lg'>Create an account to start your journey</p>
+          </div>
 
-        <div className='w-[90%] flex items-start justify-start flex-col gap-[10px] '>
-          <label htmlFor="email" className='text-[20px]'>Email</label>
-          <input type="text" id='email' className='w-[90%] h-[40px] border-[2px] border-[#555656] rounded-lg text-[18px] px-[20px]' required onChange={(e) => setEmail(e.target.value)} value={email} />
-        </div>
+          <div className='space-y-4'>
+            <div className='group flex flex-col gap-2'>
+              <label htmlFor="name" className='text-slate-700 text-sm font-medium ml-1'>Full Name</label>
+              <input
+                type="text"
+                id='name'
+                className='w-full h-12 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 text-lg px-6 outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 transition-all placeholder:text-slate-400'
+                placeholder='John Doe'
+                required
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+              />
+            </div>
 
-        <div className='w-[90%] flex items-start justify-start flex-col gap-[10px] relative'>
-          <label htmlFor="password" className='text-[20px]'>Password</label>
-          <input type={show ? "text" : "password"} id='password' className='w-[90%] h-[40px] border-[2px] border-[#555656] rounded-lg text-[18px] px-[20px]' required onChange={(e) => setPassword(e.target.value)} value={password} />
-          {!show && <IoMdEye className='w-[22px] h-[22px] absolute right-[12%] bottom-[10px] cursor-pointer' onClick={() => setShow(prev => !prev)} />}
-          {show && <IoEyeOffOutline className='w-[22px] h-[22px] absolute right-[12%] bottom-[10px] cursor-pointer' onClick={() => setShow(prev => !prev)} />}
-        </div>
+            <div className='group flex flex-col gap-2'>
+              <label htmlFor="email" className='text-slate-700 text-sm font-medium ml-1'>Email Address</label>
+              <input
+                type="email"
+                id='email'
+                className='w-full h-12 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 text-lg px-6 outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 transition-all placeholder:text-slate-400'
+                placeholder='you@example.com'
+                required
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+              />
+            </div>
 
-        <button className='px-[50px] py-[10px] bg-[#f14242] rounded-lg text-[white] text-[18px] md-px-[100px] mt-[20px]' disabled={loading}>{loading ? "Loading...." : "SignUp"}</button>
+            <div className='group flex flex-col gap-2 relative'>
+              <label htmlFor="password" className='text-slate-700 text-sm font-medium ml-1'>Password</label>
+              <div className='relative'>
+                <input
+                  type={show ? "text" : "password"}
+                  id='password'
+                  className='w-full h-12 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 text-lg px-6 outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 transition-all placeholder:text-slate-400'
+                  placeholder='••••••••'
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                />
+                <div
+                  className='absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors p-2'
+                  onClick={() => setShow(prev => !prev)}
+                >
+                  {show ? <IoEyeOffOutline size={22} /> : <IoMdEye size={22} />}
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <p className='text-[18px]'>Already have a account?<span className='text-[19px] text-[red] cursor-pointer' onClick={() => navigate("/login")}>Login</span>
-        </p>
+          <button
+            type="submit"
+            className='w-full h-14 mt-4 bg-gradient-to-r from-rose-500 to-pink-600 text-white font-bold text-lg rounded-2xl shadow-lg shadow-rose-500/30 hover:shadow-rose-500/40 hover:scale-[1.01] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2'
+            disabled={loading}
+          >
+            {loading ? (
+              <div className='w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin'></div>
+            ) : (
+              "Sign Up"
+            )}
+          </button>
 
-      </form>
+          <p className='text-center text-slate-500 text-base mt-2'>
+            Already have an account?
+            <span
+              className='text-rose-500 font-semibold cursor-pointer hover:text-rose-600 ml-2 transition-colors'
+              onClick={() => navigate("/login")}
+            >
+              Log in
+            </span>
+          </p>
+        </form>
+      </div>
     </div>
   )
 }

@@ -42,34 +42,84 @@ function Login() {
     }
   }
   return (
-    <div className='w-[100vw] h-[100vh] flex items-center justify-center relative'>
-
-      <div className='w-[50px] h-[50px] bg-[#f14242] cursor-pointer absolute top-[10%] left-[20px] rounded-[50%] flex items-center justify-center' onClick={() => navigate("/")}>
-        <FaArrowLeft className='w-[25px] h-[25px] text-[white] ' />
+    <div className='w-full min-h-screen flex items-center justify-center relative overflow-hidden bg-slate-50'>
+      {/* Back Button */}
+      <div
+        className='w-12 h-12 bg-white cursor-pointer absolute top-8 left-8 rounded-full flex items-center justify-center z-20 hover:bg-slate-100 transition-all active:scale-95 border border-slate-200 shadow-sm'
+        onClick={() => navigate("/")}
+      >
+        <FaArrowLeft className='w-5 h-5 text-slate-600' />
       </div>
-      <form action="" className='max-w-[900px] w-[90%] h-[600px] flex items-center justify-center flex-col md:items-start gap-[10px]' onSubmit={handleLogin} >
-        <h1 className='text-[30px] text-[black]'>Welcome to Airbnb</h1>
 
-        <div className='w-[90%] flex items-start justify-start flex-col gap-[10px] '>
-          <label htmlFor="email" className='text-[20px]'>Email</label>
-          <input type="text" id='email' className='w-[90%] h-[40px] border-[2px] border-[#555656] rounded-lg text-[18px] px-[20px]' required onChange={(e) => setEmail(e.target.value)} value={email} />
-        </div>
+      <div className='relative z-10 w-full max-w-md px-6 animate-in fade-in slide-in-from-bottom-8 duration-700'>
+        <form
+          className='w-full bg-white border border-slate-200 rounded-[2.5rem] p-10 flex flex-col gap-6 shadow-xl'
+          onSubmit={handleLogin}
+        >
+          <div className='space-y-2 mb-4'>
+            <h1 className='text-4xl font-bold text-slate-900 tracking-tight'>Welcome to <span className='text-rose-500'>Airbnb</span></h1>
+            <p className='text-slate-500 text-lg'>Log in to your account to continue</p>
+          </div>
 
-        <div className='w-[90%] flex items-start justify-start flex-col gap-[10px] relative'>
-          <label htmlFor="password" className='text-[20px]'>Password</label>
-          <input type={show ? "text" : "password"} id='password' className='w-[90%] h-[40px] border-[2px] border-[#555656] rounded-lg text-[18px] px-[20px]' required onChange={(e) => setPassword(e.target.value)} value={password} />
+          <div className='space-y-4'>
+            <div className='group flex flex-col gap-2'>
+              <label htmlFor="email" className='text-slate-700 text-sm font-medium ml-1'>Email Address</label>
+              <input
+                type="email"
+                id='email'
+                className='w-full h-14 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 text-lg px-6 outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 transition-all placeholder:text-slate-400'
+                placeholder='you@example.com'
+                required
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+              />
+            </div>
 
+            <div className='group flex flex-col gap-2 relative'>
+              <label htmlFor="password" className='text-slate-700 text-sm font-medium ml-1'>Password</label>
+              <div className='relative'>
+                <input
+                  type={show ? "text" : "password"}
+                  id='password'
+                  className='w-full h-14 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 text-lg px-6 outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 transition-all placeholder:text-slate-400'
+                  placeholder='••••••••'
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                />
+                <div
+                  className='absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors p-2'
+                  onClick={() => setShow(prev => !prev)}
+                >
+                  {show ? <IoEyeOffOutline size={22} /> : <IoMdEye size={22} />}
+                </div>
+              </div>
+            </div>
+          </div>
 
+          <button
+            type="submit"
+            className='w-full h-14 mt-4 bg-gradient-to-r from-rose-500 to-pink-600 text-white font-bold text-lg rounded-2xl shadow-lg shadow-rose-500/30 hover:shadow-rose-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center gap-2'
+            disabled={loading}
+          >
+            {loading ? (
+              <div className='w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin'></div>
+            ) : (
+              "Login"
+            )}
+          </button>
 
-          {show && <IoEyeOffOutline className='w-[22px] h-[22px] absolute right-[12%] bottom-[10px] cursor-pointer' onClick={() => setShow(prev => !prev)} />}
-        </div>
-
-        <button className='px-[50px] py-[10px] bg-[#f14242]  text-[white] text-[18px] md-px-[100px] rounded-lg' disabled={loading}>{loading ? "Loading...." : "Login"}</button>
-
-        <p className='text-[18px]'>Don't have any Account?<span className='text-[19px] text-[red] cursor-pointer' onClick={() => navigate("/SignUp")}>SignUp</span>
-        </p>
-
-      </form>
+          <p className='text-center text-slate-500 text-base mt-2'>
+            Don't have an account?
+            <span
+              className='text-rose-500 font-semibold cursor-pointer hover:text-rose-600 ml-2 transition-colors'
+              onClick={() => navigate("/SignUp")}
+            >
+              Sign up
+            </span>
+          </p>
+        </form>
+      </div>
     </div>
   )
 }
