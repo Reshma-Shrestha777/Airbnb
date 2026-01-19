@@ -29,13 +29,29 @@ function BookingContext({children}) {
         }
     }
 
+    const cancelBooking = async (id) =>{ 
+            try {
+                let result = await axios.delete(serverUrl + `/api/booking/cancel/${id}`, {withCredentials: true})
+            await getCurrentUser()
+            await getListing()
+            console.log(result.data)
+                
+            } catch (error) {
+                console.log(error)
+            }
+            
+        }
+    
+
+
     let value={
         checkIn,setCheckIn,
         checkOut,setCheckOut,
         total,setTotal,
         night,setNight,
         bookingData, setBookingData,
-        handleBooking
+        handleBooking,cancelBooking
+        
     }
   return (
     <div>
