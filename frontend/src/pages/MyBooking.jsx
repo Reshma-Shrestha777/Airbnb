@@ -32,6 +32,9 @@ function MyBooking() {
               isBooked={list.listing?.isBooked}
               ratings={list.listing?.ratings}
               host={list.listing?.host}
+              bookingId={list._id}
+              showCancel={true}
+              guest={list.listing?.guest}
             />
           ))
         ) : (

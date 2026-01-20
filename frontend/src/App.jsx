@@ -13,6 +13,7 @@ import { userDataContext } from './Context/userContext'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MyBooking from './pages/MyBooking'
+import Booked from './pages/booked'
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
         <Route path='/mylisting' element={userData != null ? <MyListing /> : <Navigate to={"/"} />} />
         <Route path='/viewcard' element={userData != null ? <ViewCard /> : <Navigate to={"/"} />} />
         <Route path='/mybooking' element={userData != null ? <MyBooking /> : <Navigate to={"/"} />} />
+        <Route path='/booked' element={userData != null ? <Booked /> : <Navigate to={"/booked"} />} />
       </Routes>
     </>
   )

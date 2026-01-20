@@ -25,8 +25,9 @@ export const createBooking = async (req, res) => {
       guest: req.userId,
       listing: listing._id
     })
+    await booking.populate("host", "email");
     let user = await User.findByIdAndUpdate(req.userId, {
-      $push:{booking:listing}
+      $push: { booking: booking._id }
     }, { new: true })
     if (!user) {
       return res.status(404).json({ message: "Sorry! User not found." })
@@ -42,17 +43,52 @@ export const createBooking = async (req, res) => {
   }
 }
 
-export const cancelBooking = async (req, res) =>{
+export const cancelBooking = async (req, res) => {
   try {
-    let {id} = req.params
-    let listing = await Listing.findByIdAndUpdate(id,{isBooked:false})
-    let user = await User.findByIdAndUpdate(listing.guest,{ $pull: {booking: listing._id}  
-    },{ new: true })
-    if(!user){
-      return res.status(404).json({message:"Sorry! User not found."})
+    let { id } = req.params
+
+    if (id === "undefined") {
+      return res.status(400).json({ message: "Invalid ID provided" })
     }
-    return res.status(200).json({message:"Booking cancelled successfully"})
+
+    let booking = null;
+
+    // 1. Try finding booking directly
+    try {
+      booking = await Booking.findById(id)
+    } catch (e) {
+      // Ignore cast error here, might be a valid ID for listing but not booking? No, ObjectIds format is same. 
+      // But if id is invalid format, findById throws.
+      // We catch it and proceed to try listing lookup if needed, though usually same format.
+    }
+
+    // 2. If not found, try finding listing and getting active booking
+    if (!booking) {
+      try {
+        let listing = await Listing.findById(id)
+        if (listing && listing.isBooked) {
+          booking = await Booking.findOne({ listing: listing._id, status: "booked" })
+        }
+      } catch (e) { }
+    }
+
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found" })
+    }
+
+    let listing = await Listing.findByIdAndUpdate(booking.listing, { isBooked: false, guest: null })
+    // Remove booking from user's list
+    let user = await User.findByIdAndUpdate(booking.guest, {
+      $pull: { booking: booking._id }
+    }, { new: true })
+
+    await Booking.findByIdAndDelete(booking._id)
+
+    if (!user) {
+      return res.status(404).json({ message: "Sorry! User not found." })
+    }
+    return res.status(200).json({ message: "Booking cancelled successfully" })
   } catch (error) {
-    return res.status(500).json({message:"Booking error! ${error}"})
+    return res.status(500).json({ message: `Booking error! ${error}` })
   }
 }
