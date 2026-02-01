@@ -54,6 +54,8 @@ Backend
 
 - Express.js
 
+also some of the features are yet to implemet---
+
 - MongoDB & Mongoose
 
 - JWT Authentication
