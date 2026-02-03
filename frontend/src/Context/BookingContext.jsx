@@ -4,6 +4,7 @@ import { authDataContext } from './authContext'
 import { userDataContext } from './userContext'
 import { listingDataContext } from './listingContext'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 export const bookingDataContext = createContext()
 
 function BookingContext({ children }) {
@@ -26,11 +27,12 @@ function BookingContext({ children }) {
             console.log(result.data)
             // setBookingData(false) <-- Removed to prevent clearing data
             navigate("/booked")
+            toast.success("Booking Successful")
 
         } catch (error) {
             console.log(error)
             setBookingData(null)
-
+            toast.error(error.response.data.message)
         }
     }
 
@@ -40,9 +42,11 @@ function BookingContext({ children }) {
             await getCurrentUser()
             await getListing()
             console.log(result.data)
+            toast.success("Booking Cancelled Successfully")
 
         } catch (error) {
             console.log(error)
+            toast.error(error.response.data.message)
         }
 
     }

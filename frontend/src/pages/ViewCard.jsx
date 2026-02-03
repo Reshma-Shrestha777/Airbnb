@@ -8,6 +8,7 @@ import axios from 'axios';
 import { authDataContext } from '../Context/authContext';
 import { LiaStarSolid } from "react-icons/lia";
 import { bookingDataContext } from '../Context/bookingContext';
+import { toast } from 'react-toastify';
 
 function ViewCard() {
   let navigate = useNavigate()
@@ -71,6 +72,7 @@ function ViewCard() {
         }
       })
       console.log(result)
+      toast.success("Listing Updated Successfully!")
       navigate("/")
       setTitle("")
       setDescription("")
@@ -85,6 +87,7 @@ function ViewCard() {
     } catch (error) {
       console.log(error)
       setUpdating(false)
+      toast.error(error.response.data.message)
     }
   }
 
@@ -94,9 +97,11 @@ function ViewCard() {
       let result = await axios.delete(serverUrl + `/api/listing/delete/${cardDetails._id}`, { withCredentials: true })
       console.log(result.data)
       navigate("/")
+      toast.success("Listing Deleted Successfully!")
       setDeleting(false)
     } catch (error) {
       console.log(error)
+      toast.error(error.response.data.message)
       setDeleting(false)
     }
   }

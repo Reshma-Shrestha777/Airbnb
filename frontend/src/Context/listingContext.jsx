@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import React, { createContext, useState, useContext, useEffect } from 'react'
 import { authDataContext } from './authContext'
+import { toast } from 'react-toastify';
 
 export const listingDataContext = createContext()
 
@@ -60,6 +61,7 @@ function ListingContext({ children }) {
     setAdding(false)
     console.log("Success:", result)
     navigate("/")
+    toast.success("Listing Added Successfully!")
     
     // Reset all states
     setTitle("")
@@ -79,6 +81,7 @@ function ListingContext({ children }) {
     setAdding(false)
     console.log("Error details:", error)
     console.log("Error response:", error.response?.data)
+    toast.error(error.response.data.message)
   }
 }
 
