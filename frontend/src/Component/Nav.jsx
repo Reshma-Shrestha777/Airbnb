@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import logo from '../assets/logo.png'
 import { FaSearch } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -27,7 +27,8 @@ function Nav() {
     let navigate = useNavigate()
     let { serverUrl } = useContext(authDataContext)
     let [cate, setCate] = useState()
-    let { listingData, setListingData, setNewListData, newlistData } = useContext(listingDataContext)
+    let { listingData, setListingData, setNewListData, newlistData, searchData, handleSearch } = useContext(listingDataContext)
+    let [input,setInput]=useState("")
 
     const handleLogOut = async () => {
         try {
@@ -67,6 +68,10 @@ function Nav() {
         }
     };
 
+    useEffect(() => {
+        handleSearch(input)
+    },[input])
+
 
 
     return (
@@ -74,7 +79,7 @@ function Nav() {
             <div className='w-[100vw] min-h-[80px]  border-b-[2px] border-[#dcdcdc] px-[40px] flex items-center justify-between md:px-[40px] '>
                 <div><img src={logo} alt="" className='w-[130px]' /></div>
                 <div className='w-[35%] relative hidden md:block'>
-                    <input type="text" className='w-[100%] px-[30px] py-[10px] border-[2px] border-[#bdbaba] outline-none overflow-auto rounded-[30px] text-[17px]' placeholder='Any Where  |  Any Location  |   Any City' />
+                    <input type="text" className='w-[100%] px-[30px] py-[10px] border-[2px] border-[#bdbaba] outline-none overflow-auto rounded-[30px] text-[17px]' placeholder='Any Where  |  Any Location  |   Any City' onChange={(e)=>setInput(e.target.value)} value={input}/>
                     <button className='absolute p-[10px] rounded-[50px] bg-[red] right-[3%] top-[5px]'> <FaSearch className='w-[20px] h-[20px] text-[white]' /></button>
                 </div>
                 <div className='flex items-center justify-center gap-[10px] relative'>
@@ -99,7 +104,13 @@ function Nav() {
                     </div>}
                 </div>
 
+                {searchData.length>0 && <div className='w-[100vw] h-[450px] flex flex-col gap-[20px] absolute top-[50%] overflow-auto left-[0] justify-start items-center'>
+                    <div className='max-w-[700px] w-[100vw] h-[300px] overflow-hidden flex flex-col bg-[#fefdfd] p-[20px] rounded-lg border-[1px] border-[#a2a1a1] cursor-pointer'>
+                        {
 
+                        }
+                    </div>
+                </div>}
 
 
 
@@ -107,7 +118,7 @@ function Nav() {
 
             <div className='w-[100%] h-[60px]  items-center justify-center block md:hidden'>
                 <div className='w-[35%] relative '>
-                    <input type="text" className='w-[100%] px-[30px] py-[10px] border-[2px] border-[#bdbaba] outline-none overflow-auto rounded-[30px] text-[17px]' placeholder='Any Where  |  Any Location  |   Any City' />
+                    <input type="text" className='w-[100%] px-[30px] py-[10px] border-[2px] border-[#bdbaba] outline-none overflow-auto rounded-[30px] text-[17px]' placeholder='Any Where  |  Any Location  |   Any City' onChange={(e)=>setInput(e.target.value)} value={input} />
                     <button className='absolute p-[10px] rounded-[50px] bg-[red] right-[3%] top-[5px]'> <FaSearch className='w-[20px] h-[20px] text-[white]' /></button>
                 </div>
             </div>

@@ -26,6 +26,7 @@ function ListingContext({ children }) {
   let [listingData, setListingData] = useState([])
   let [newlistData, setNewListData] = useState([])
   let [cardDetails,setCardDetails] = useState(null)
+  let [searchData,setSearchData]=useState([])
   
   let { serverUrl } = useContext(authDataContext)
 
@@ -97,6 +98,16 @@ function ListingContext({ children }) {
     }
   }
 
+  const handleSearch = async () => {
+    try {
+      let result = await axios.get(serverUrl + `/api/listing/search?query=${data}`)
+      setSearchData(result.data)
+    } catch (error) {
+      setSearchData(null)
+      console.log(error)
+    }
+  }
+
   const getListing = async () => {
     try {
       let result = await axios.get( serverUrl + "/api/listing/get",{withCredentials:true})
@@ -133,7 +144,8 @@ function ListingContext({ children }) {
     handleViewCard,
     cardDetails, setCardDetails,
     updating, setUpdating,
-    deleting, setDeleting
+    deleting, setDeleting,
+    handleSearch, searchData,setSearchData
 
   }
   return (
