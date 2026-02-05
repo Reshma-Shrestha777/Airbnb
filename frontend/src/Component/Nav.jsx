@@ -27,8 +27,8 @@ function Nav() {
     let navigate = useNavigate()
     let { serverUrl } = useContext(authDataContext)
     let [cate, setCate] = useState()
-    let { listingData, setListingData, setNewListData, newlistData, searchData, handleSearch } = useContext(listingDataContext)
-    let [input,setInput]=useState("")
+    let { listingData, setListingData, setNewListData, newlistData, searchData, handleSearch, searchQuery, setSearchQuery } = useContext(listingDataContext)
+    
 
     const handleLogOut = async () => {
         try {
@@ -69,8 +69,8 @@ function Nav() {
     };
 
     useEffect(() => {
-        handleSearch(input)
-    },[input])
+        handleSearch()
+    },[searchQuery])
 
 
 
@@ -79,7 +79,7 @@ function Nav() {
             <div className='w-[100vw] min-h-[80px]  border-b-[2px] border-[#dcdcdc] px-[40px] flex items-center justify-between md:px-[40px] '>
                 <div><img src={logo} alt="" className='w-[130px]' /></div>
                 <div className='w-[35%] relative hidden md:block'>
-                    <input type="text" className='w-[100%] px-[30px] py-[10px] border-[2px] border-[#bdbaba] outline-none overflow-auto rounded-[30px] text-[17px]' placeholder='Any Where  |  Any Location  |   Any City' onChange={(e)=>setInput(e.target.value)} value={input}/>
+                    <input type="text" className='w-[100%] px-[30px] py-[10px] border-[2px] border-[#bdbaba] outline-none overflow-auto rounded-[30px] text-[17px]' placeholder='Any Where  |  Any Location  |   Any City' onChange={(e)=>setSearchQuery(e.target.value)} value={searchQuery}/>
                     <button className='absolute p-[10px] rounded-[50px] bg-[red] right-[3%] top-[5px]'> <FaSearch className='w-[20px] h-[20px] text-[white]' /></button>
                 </div>
                 <div className='flex items-center justify-center gap-[10px] relative'>
@@ -118,7 +118,7 @@ function Nav() {
 
             <div className='w-[100%] h-[60px]  items-center justify-center block md:hidden'>
                 <div className='w-[35%] relative '>
-                    <input type="text" className='w-[100%] px-[30px] py-[10px] border-[2px] border-[#bdbaba] outline-none overflow-auto rounded-[30px] text-[17px]' placeholder='Any Where  |  Any Location  |   Any City' onChange={(e)=>setInput(e.target.value)} value={input} />
+                    <input type="text" className='w-[100%] px-[30px] py-[10px] border-[2px] border-[#bdbaba] outline-none overflow-auto rounded-[30px] text-[17px]' placeholder='Any Where  |  Any Location  |   Any City' onChange={(e)=>setSearchQuery(e.target.value)} value={searchQuery} />
                     <button className='absolute p-[10px] rounded-[50px] bg-[red] right-[3%] top-[5px]'> <FaSearch className='w-[20px] h-[20px] text-[white]' /></button>
                 </div>
             </div>
