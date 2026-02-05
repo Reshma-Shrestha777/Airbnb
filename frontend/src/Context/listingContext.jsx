@@ -100,12 +100,12 @@ function ListingContext({ children }) {
     }
   }
 
-  const handleSearch = async () => {
+  const handleSearch = async (data) => {
      if (!searchQuery.trim()) {
     setSearchData([])
     return
   }
-  
+
     try {
       let result = await axios.get(serverUrl + `/api/listing/search?query=${searchQuery}`, { withCredentials: true })
       setSearchData(result.data)

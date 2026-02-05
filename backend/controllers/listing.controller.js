@@ -142,7 +142,7 @@ export const search = async (req, res) => {
 
         const listing = await Listing.find({
             $or: [
-                { landmark: { $regex: query, $options: "i" } },
+                { landMark: { $regex: query, $options: "i" } },
                 { city: { $regex: query, $options: "i" } },
                 { title: { $regex: query, $options: "i" } },
             ],
