@@ -1,65 +1,103 @@
-# Airbnb
-Airbnb Clone – MERN Stack Project
+# 🏡 Airbnb Clone — MERN Stack Application
 
-A full-stack Airbnb Clone built using the MERN stack (MongoDB, Express.js, React.js, Node.js).
-This project allows users to explore listings, book stays, and manage properties with secure authentication.
+A full-stack **Airbnb-inspired web application** built using the **MERN stack (MongoDB, Express.js, React.js, Node.js)**.  
+This project demonstrates a scalable, secure, and modern web architecture that allows users to explore properties, make bookings, and manage listings.
 
-🚀 Features
-👤 User Features
+---
 
-- User registration & login (JWT authentication)
+## 🚀 Features
 
-- Browse available stays
+### 👤 User Features
+- User registration and authentication using **JWT**
+- Browse and search property listings
+- View detailed listings with images and descriptions
+- Book properties with date selection
+- View booking history and upcoming stays
+- Manage user profile information
 
-- View listing details with images
+---
 
-- Book properties
-
-- View booking history
-
-- Profile management
-
-🏠 Host Features
-
-- Add new property listings
-
-- Update and delete listings
-
+### 🏠 Host Features
+- Create and publish property listings
+- Update and delete existing listings
+- Manage availability and pricing
 - View bookings for owned properties
 
-🔐 Admin / System
+---
 
-- Secure API endpoints
+### 🔐 Admin / System Features
+- Role-based access control (User / Host / Admin)
+- Secure and protected API endpoints
+- Centralized error handling
+- Request validation and sanitization
+- Environment-based configuration
+- RESTful API design following best practices
 
-- Role-based access control
+---
 
-- Data validation and error handling
+## 🛠️ Tech Stack
 
-🛠️ Tech Stack
-Frontend
+### Frontend
+- **React.js** – Component-based UI
+- **React Router** – Client-side routing
+- **Axios** – API communication
+- **Tailwind CSS** – Utility-first styling
+- **Context API** – Global state management
 
-- React.js
+---
 
-- React Router
+### Backend
+- **Node.js** – Runtime environment
+- **Express.js** – Backend framework
+- **MongoDB** – NoSQL database
+- **Mongoose** – Object Data Modeling (ODM)
+- **JWT (JSON Web Tokens)** – Authentication & authorization
+- **bcrypt.js** – Password hashing
+- **dotenv** – Environment variable management
 
-- Axios
+---
 
-- Tailwind CSS 
+## 🧩 Architecture Overview
+- Modular and scalable folder structure
+- Separation of concerns (routes, controllers, models, middleware)
+- MongoDB reference-based relationships
+- Reusable authentication and authorization middleware
+- Clean and consistent API response patterns
 
-- Context API
+---
 
-Backend
+## 🚧 Work in Progress / Upcoming Features
+Some advanced features are currently under development:
 
-- Node.js
+- 🔍 Advanced search and filtering
+- 📅 Availability calendar & booking conflict handling
+- ⭐ Reviews and ratings system
+- 💳 Payment gateway integration
+- 🖼️ Image uploads with cloud storage
+- 📊 Admin dashboard & analytics
+- 🧪 Unit and integration testing
+- 🚀 Production deployment with CI/CD
 
-- Express.js
+---
 
-also some of the features are yet to implemet---
+## 🎯 Project Purpose
+This project is built to **showcase real-world full-stack development skills**, including authentication, database design, REST APIs, and modern frontend practices—closely resembling a production-ready SaaS application.
 
-- MongoDB & Mongoose
+---
 
-- JWT Authentication
+## ⚙️ Installation & Setup
 
-- bcrypt.js
+```bash
+# Clone the repository
+git clone https://github.com/your-username/airbnb-clone.git
 
-- dotenv
+# Navigate to project directory
+cd airbnb-clone
+
+# Install backend dependencies
+cd backend
+npm install
+
+# Install frontend dependencies
+cd ../frontend
+npm install
