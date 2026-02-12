@@ -27,7 +27,7 @@ function Nav() {
     let navigate = useNavigate()
     let { serverUrl } = useContext(authDataContext)
     let [cate, setCate] = useState()
-    let { listingData, setListingData, setNewListData, newlistData, searchData, handleSearch, searchQuery, setSearchQuery } = useContext(listingDataContext)
+    let { listingData, setListingData, setNewListData, newlistData, searchData, handleSearch, searchQuery, setSearchQuery, handleViewCard } = useContext(listingDataContext)
     
 
     const handleLogOut = async () => {
@@ -67,6 +67,14 @@ function Nav() {
             }
         }
     };
+
+    const handleClick = (id) => {
+    if (userData) {
+      handleViewCard(id)
+    } else {
+      navigate("/login")
+    }
+  }
 
     useEffect(() => {
         handleSearch()
@@ -108,7 +116,7 @@ function Nav() {
                     <div className='max-w-[700px] w-[100vw] h-[300px] overflow-hidden flex flex-col bg-[#fefdfd] p-[20px] rounded-lg border-[1px] border-[#a2a1a1] cursor-pointer'>
                         {
                             searchData.map((search) => (
-                                <div className='border-b border-[black] p-[10px]'>
+                                <div className='border-b border-[black] p-[10px]'onClick={()=>handleClick(search._id)}>
                                     {search.title} in {search.landMark}, {search.city}
                                 </div>
                             ))

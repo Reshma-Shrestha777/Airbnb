@@ -100,20 +100,30 @@ function ListingContext({ children }) {
     }
   }
 
-  const handleSearch = async (data) => {
-     if (!searchQuery.trim()) {
+  const handleSearch = async () => {
+  const trimmedQuery = searchQuery.trim()
+
+  
+  if (trimmedQuery.length < 2) {
     setSearchData([])
     return
   }
 
-    try {
-      let result = await axios.get(serverUrl + `/api/listing/search?query=${searchQuery}`, { withCredentials: true })
-      setSearchData(result.data)
-    } catch (error) {
-      setSearchData([])
-      console.log(error)
-    }
+  try {
+    const encodedQuery = encodeURIComponent(trimmedQuery)
+
+    let result = await axios.get(
+      serverUrl + `/api/listing/search?query=${encodedQuery}`,
+      { withCredentials: true }
+    )
+
+    setSearchData(result.data)
+  } catch (error) {
+    console.log("Search error:", error.response?.data)
+    setSearchData([])
   }
+}
+
 
   const getListing = async () => {
     try {
